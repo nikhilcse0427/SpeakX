@@ -4,7 +4,7 @@ I am  build a search functionality for a set of questions provided in a JSON fil
 
                                                                #Key Features:
 
-Frontend:
+FRONTENED
 
 A search box to input queries.
 
@@ -16,7 +16,9 @@ Ensure the UI is user-friendly and responsive.
 
 Results should be paginated for better navigation.
 
-Backend:
+
+
+BACKENED
 
 Develop the backend using Node.js or Golang.
 
