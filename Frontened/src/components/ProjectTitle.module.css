@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+h5 {
+  position: relative;
+  font-size: 4vw;
+  color: #f2f3fa;
+  -webkit-text-stroke: 0.3vw #e9eaf0;
+  text-transform: uppercase;
+}
+
+h5::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  Left: 0; 
+  width: 20%;
+  height: 100%;
+  color: rgb(33, 65, 206);
+  -webkit-text-stroke: 0vw #252839;
+  border-right: 2px solid #56e7e7;
+  overflow: hidden;
+  animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+  0%,10%,100% {
+    width: 0;
+  }
+  70%,90% {
+    width: 100%;
+  }
+}

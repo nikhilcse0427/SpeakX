@@ -1,14 +1,12 @@
+import ProjectTitle from './components/ProjectTitle.jsx'
+import './App.css';
 
-import './App.css'
-
-function App() {
-  
-
+function YourComponent() {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  )
+    <div>
+      <center><ProjectTitle /></center>
+      </div>
+  );
 }
 
-export default App
+export default YourComponent;
