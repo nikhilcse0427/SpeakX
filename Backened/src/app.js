@@ -1,34 +1,68 @@
+
+// import express from 'express';
+// import cors from 'cors';  
+// import mongoose from 'mongoose';
+// import { JsonData } from './models/jsonData.model.js';
+
+// const app = express();
+// app.use(express.json());
+// app.use(cors({
+//   origin: 'http://localhost:5173'  
+// }));
+
+
+// app.get('/',(req,res)=>{
+//   res.send("Welcome to the Server")
+// })
+// app.get('/api', async (req, res) => {
+//   try {
+//     const data = await JsonData.find();
+//     res.json(data); 
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//        message: 'Internal Server Error'
+//       });
+//   }
+// });
+
+// export {app}
+
+
 import express from 'express';
-import { jsonData } from './models/jsonData.model.js'; 
-import mongoose from 'mongoose'
+import cors from 'cors';  
+import mongoose from 'mongoose';
+import { JsonData } from './models/jsonData.model.js';
+
 const app = express();
 
-app.use(express.json({ limit: '16kb' }));
+// Middleware
+app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173'  // Allow frontend requests from this origin
+}));
 
-
+// Root endpoint
 app.get('/', (req, res) => {
-  res.send("hello world");
+  res.send("Welcome to the Server");
 });
 
-
-const getAllData = async (req, res) => {
+// API endpoint to get JSON data
+app.get('/api', async (req, res) => {
   try {
-    const data = await jsonData.findById(new mongoose.Types.ObjectId('6654e3e00cd382ca30a019e1'));
-    res.json(data); 
-    console.log(data)
+    const data = await JsonData.find(); // Fetch data from MongoDB collection
+    if (data.length === 0) {
+      return res.status(404).json({ message: 'No data found' });
+    }
+    res.json(data); // Return the data
   } catch (error) {
-    console.log(error);
-    res.send(error); 
+    console.error(error);
+    res.status(500).json({
+       message: 'Internal Server Error',
+       error: error.message
+    });
   }
-};
-
-// Add a route to use the getAllData function
-app.get('/data', getAllData);
+});
 
 // Export the app
 export { app };
-
-// Ensure you start the server in the main file (e.g., index.js or server.js)
-// Example (in your entry file):
-// import { app } from './app.js';
-// app.listen(3000, () => console.log('Server is running on port 3000'));

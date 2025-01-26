@@ -13,7 +13,7 @@ const optionSchema = new Schema({
   }
 });
 
-const Option = mongoose.model('Option', optionSchema);
+
 
 
 
@@ -31,7 +31,6 @@ const blocksSchema = new mongoose.Schema({
     required:true
   }
 })
-const Block = mongoose.model('Block', blocksSchema);
 
 
 const JsonDataSchema = new mongoose.Schema({
@@ -65,7 +64,7 @@ const JsonDataSchema = new mongoose.Schema({
   }
 
 })
-export const jsonData = mongoose.model('JsonData', JsonDataSchema);
+export const JsonData = mongoose.model('JsonData', JsonDataSchema);
 
 
 
