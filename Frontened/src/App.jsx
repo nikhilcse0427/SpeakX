@@ -4,11 +4,11 @@ import SearchSection from './components/SearchSection.jsx';
 import './App.css';
 
 function App() {
-  const [data, setData] = useState([]); // Store fetched data
-  const [filteredData, setFilteredData] = useState([]); // Filtered data based on search
-  const [searchQuery, setSearchQuery] = useState(''); // Store search input
-  const [filterType, setFilterType] = useState(''); // Store selected filter for question type
-  const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+  const [data, setData] = useState([]); 
+  const [filteredData, setFilteredData] = useState([]); 
+  const [searchQuery, setSearchQuery] = useState(''); 
+  const [filterType, setFilterType] = useState('');
+  const [currentPage, setCurrentPage] = useState(1); 
   const itemsPerPage = 5; // Items per page
 
   // Fetch data on component mount
@@ -19,34 +19,33 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, 'jsondata');
-        setData(data); // Store the fetched data
-        setFilteredData(data); // Set initial filtered data to fetched data
+        setData(data); 
+        setFilteredData(data); 
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  // Handle search functionality
+ 
   const handleSearch = (searchTerm) => {
     setSearchQuery(searchTerm);
-    filterData(searchTerm, filterType); // Filter data with the search query and current type filter
-    setCurrentPage(1); // Reset pagination to the first page
+    filterData(searchTerm, filterType); 
+    setCurrentPage(1); 
   };
 
   // Handle filter by question type
   const handleFilterType = (type) => {
     setFilterType(type);
-    filterData(searchQuery, type); // Filter data with the current search query and selected type filter
-    setCurrentPage(1); // Reset pagination to the first page
+    filterData(searchQuery, type); 
   };
 
-  // Filter data based on both search and type
+
   const filterData = (searchTerm, type) => {
     const filtered = data.filter((item) => {
       const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesType = type ? item.type.toLowerCase() === type.toLowerCase() : true;
       return matchesSearch && matchesType;
     });
-    setFilteredData(filtered); // Update filtered results
+    setFilteredData(filtered); 
   };
 
   // Pagination logic
@@ -54,12 +53,12 @@ function App() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  // const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   // Handle page change
-  // const handlePageChange = (pageNumber) => {
-  //   setCurrentPage(pageNumber);
-  // };
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div>
@@ -79,7 +78,7 @@ function App() {
           <option value="">All</option>
           <option value="ANAGRAM">ANAGRAM</option>
           <option value="MCQ">MCQ</option>
-          <option value="READ_ALONG">MCQ</option>
+          <option value="READ_ALONG">READ_ALONG</option>
        
         </select>
       </div>
