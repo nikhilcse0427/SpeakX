@@ -1,27 +1,34 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-
+import { jsonData } from './models/jsonData.model.js'; 
+import mongoose from 'mongoose'
 const app = express();
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true
-}));
-
-// This option specifies which origins are allowed to access your resources. Here, process.env.CORS_ORIGIN is an environment variable that should contain the allowed origin(s). For example, it could be set to 'http://example.com' to allow requests only from http://example.com, or it could be a wildcard ('*') to allow requests from any origin.
-
-// credentials: true:
-// This option tells the browser to include credentials such as cookies or authorization headers in the requests. When credentials is set to true, it means that the server will allow the client to send credentials (such as cookies or HTTP authentication).
-
 app.use(express.json({ limit: '16kb' }));
-app.use(express.urlencoded({ extended: true, limit: '16kb' }));
-app.use(express.static('public'));
-app.use(cookieParser()); 
 
 
 app.get('/', (req, res) => {
   res.send("hello world");
 });
 
+
+const getAllData = async (req, res) => {
+  try {
+    const data = await jsonData.findById(new mongoose.Types.ObjectId('6654e3e00cd382ca30a019e1'));
+    res.json(data); 
+    console.log(data)
+  } catch (error) {
+    console.log(error);
+    res.send(error); 
+  }
+};
+
+// Add a route to use the getAllData function
+app.get('/data', getAllData);
+
+// Export the app
 export { app };
+
+// Ensure you start the server in the main file (e.g., index.js or server.js)
+// Example (in your entry file):
+// import { app } from './app.js';
+// app.listen(3000, () => console.log('Server is running on port 3000'));
